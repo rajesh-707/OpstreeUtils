@@ -3,6 +3,7 @@ from PIL import ImageGrab
 from docx import Document
 from docx.shared import Inches
 import sys
+from Xlib.display import Display
 
 document = Document()
 counter = 0
@@ -26,7 +27,7 @@ def on_release(key):
        snapshot.save(save_path)
        p = document.add_paragraph()
        r = p.add_run()
-       r.add_picture(save_path)
+       r.add_picture(save_path, width=Inches(7.0))
        
        counter = counter + 1
     document.save('C:\\python\\' + sys.argv[1])
