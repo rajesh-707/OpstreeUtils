@@ -20,7 +20,7 @@ def capture_screen():
     global counter
     global docx_name
     global document
-    comments = e.get()
+    #comments = e.get()
     snapshot = ImageGrab.grab()
     str_counter = str(counter)
     save_path = directory + '\\python\\' + filename_prefix + str_counter + '.jpg'
@@ -28,8 +28,16 @@ def capture_screen():
     p = document.add_paragraph()
     r = p.add_run()
     r.add_picture(save_path, width=Inches(7.0))
-    r.add_text(comments)
+    #r.add_text(comments)
     counter = counter + 1
+    document.save(directory + '\\python\\' + docx_name + '.docx')
+
+def add_comment():
+    global document
+    comments = e.get()
+    p = document.add_paragraph()
+    r = p.add_run()
+    r.add_text(comments)
     document.save(directory + '\\python\\' + docx_name + '.docx')
 
 def printtext():
@@ -65,6 +73,14 @@ e = Entry(root)
 e.pack(side=LEFT)
 e.focus_set()
 
+## add comment button
+add_comment_button = Button(root,text='add_comment',command=add_comment)
+add_comment_button.pack(side='left')
+
+## clear the comments 
+clear_button = Button(root, text='clear Text', command=clear_text)
+clear_button.pack(side='left')
+
 ## filename tag for filename text area
 tag = Label(root, text="Filename:")
 tag.pack(side=LEFT)
@@ -78,7 +94,5 @@ T.insert(END, default_filename)
 capture_button = Button(root,text='capture',command=printtext)
 capture_button.pack(side='left')
 
-## clear the comments 
-clear_button = Button(root, text='clear Text', command=clear_text)
-clear_button.pack(side='left')
+
 root.mainloop()
